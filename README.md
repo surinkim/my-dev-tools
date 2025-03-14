@@ -1,6 +1,12 @@
-# .
+# My Dev Tools
 
-This template should help get you started developing with Vue 3 in Vite.
+개발자를 위한 유용한 유틸리티 모음 애플리케이션입니다. Vue 3와 Vite를 사용하여 개발되었습니다.
+
+## 기능
+
+- Base64 인코딩/디코딩 유틸리티
+- JSON 포맷팅 및 검증 유틸리티
+- 더 많은 기능 추가 예정...
 
 ## Recommended IDE Setup
 
