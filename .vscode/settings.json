@@ -7,7 +7,8 @@
   },
   "github.copilot.chat.commitMessageGeneration.instructions": [
     {
-      "text": "Be extremely detailed with the file changes and the reason for the change. Add lots of emojis. Use 한국어",
+      "text": 
+        "기능 추가는 feature, 수정은 fix, 삭제는 remove, 리팩토링은 refactor로 맨 앞에 prefix를 붙일 것. 최대한 자세히 쓸 것. 변경된 파일과 왜 변경이 됐는지 이유를 쓸 것. emojis 사용할 것. 한글로 작성할 것"
     }
-  ],
+  ]
 }
