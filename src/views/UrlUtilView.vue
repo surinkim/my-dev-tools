@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 // 유틸리티 상태 관리
 const inputText = ref('');
@@ -13,7 +16,7 @@ const processUrl = () => {
     errorMessage.value = '';
     
     if (!inputText.value) {
-      errorMessage.value = '처리할 텍스트를 입력해주세요';
+      errorMessage.value = t('common.empty');
       return;
     }
 
@@ -25,14 +28,14 @@ const processUrl = () => {
       try {
         outputText.value = decodeURIComponent(inputText.value);
       } catch (e) {
-        throw new Error('유효하지 않은 URL 인코딩 문자열입니다');
+        throw new Error(t('common.invalid'));
       }
     }
   } catch (error) {
     if (error instanceof Error) {
-      errorMessage.value = `오류: ${error.message}`;
+      errorMessage.value = `${t('common.error')}: ${error.message}`;
     } else {
-      errorMessage.value = '알 수 없는 오류가 발생했습니다';
+      errorMessage.value = t('common.error');
     }
     outputText.value = '';
   }
@@ -43,7 +46,7 @@ const copyOutput = () => {
   if (outputText.value) {
     navigator.clipboard.writeText(outputText.value)
       .then(() => {
-        alert('클립보드에 복사되었습니다!');
+        alert(t('common.copied'));
       })
       .catch(err => {
         console.error('클립보드 복사 실패:', err);
@@ -71,19 +74,19 @@ const loadSample = () => {
 <template>
   <div class="url-utility">
     <header>
-      <h1>URL 인코딩/디코딩 유틸리티</h1>
-      <router-link to="/" class="back-link">← 홈으로 돌아가기</router-link>
+      <h1>{{ $t('urlUtil.title') }}</h1>
+      <router-link to="/" class="back-link">← {{ $t('nav.home') }}</router-link>
     </header>
 
     <div class="options-bar">
       <div class="radio-group">
         <label>
           <input type="radio" v-model="operation" value="encode">
-          텍스트를 URL 인코딩
+          {{ $t('common.encode') }}
         </label>
         <label>
           <input type="radio" v-model="operation" value="decode">
-          URL을 디코딩
+          {{ $t('common.decode') }}
         </label>
       </div>
     </div>
@@ -91,29 +94,29 @@ const loadSample = () => {
     <div class="url-container">
       <div class="input-section">
         <div class="text-header">
-          <h3>{{ operation === 'encode' ? '인코딩할 텍스트' : '디코딩할 URL' }}</h3>
+          <h3>{{ $t('common.input') }}</h3>
           <div class="actions">
-            <button @click="loadSample" class="btn">샘플 로드</button>
-            <button @click="clearInput" class="btn">초기화</button>
+            <button @click="loadSample" class="btn">{{ $t('common.sample') }}</button>
+            <button @click="clearInput" class="btn">{{ $t('common.clear') }}</button>
           </div>
         </div>
         <textarea 
           v-model="inputText"
-          :placeholder="operation === 'encode' ? '텍스트를 입력하세요...' : 'URL 인코딩된 문자열을 입력하세요...'"
+          :placeholder="$t('urlUtil.description')"
           class="text-textarea"
         ></textarea>
       </div>
       
       <div class="action-center">
         <button @click="processUrl" class="process-btn">
-          {{ operation === 'encode' ? '인코딩 →' : '디코딩 →' }}
+          {{ operation === 'encode' ? $t('common.encode') : $t('common.decode') }} →
         </button>
       </div>
       
       <div class="output-section">
         <div class="text-header">
-          <h3>결과</h3>
-          <button @click="copyOutput" class="btn" :disabled="!outputText">복사</button>
+          <h3>{{ $t('common.output') }}</h3>
+          <button @click="copyOutput" class="btn" :disabled="!outputText">{{ $t('common.copy') }}</button>
         </div>
         <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
         <textarea 

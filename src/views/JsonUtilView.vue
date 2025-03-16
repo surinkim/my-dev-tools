@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 // 유틸리티 상태 관리
 const inputJson = ref('');
@@ -16,7 +19,7 @@ const processJson = () => {
     errorMessage.value = '';
     
     if (!inputJson.value.trim()) {
-      errorMessage.value = '처리할 JSON을 입력해주세요';
+      errorMessage.value = t('jsonUtil.emptySample');
       return;
     }
 
@@ -32,14 +35,14 @@ const processJson = () => {
         outputJson.value = JSON.stringify(parsedJson);
         break;
       case 'validate':
-        outputJson.value = '유효한 JSON 입니다!';
+        outputJson.value = t('jsonUtil.validateSuccess');
         break;
     }
   } catch (error) {
     if (error instanceof Error) {
-      errorMessage.value = `오류: ${error.message}`;
+      errorMessage.value = `${t('common.error')}: ${error.message}`;
     } else {
-      errorMessage.value = '알 수 없는 오류가 발생했습니다';
+      errorMessage.value = t('jsonUtil.validateError');
     }
     outputJson.value = '';
   }
@@ -65,7 +68,7 @@ const copyOutput = () => {
   if (outputJson.value) {
     navigator.clipboard.writeText(outputJson.value)
       .then(() => {
-        alert('클립보드에 복사되었습니다!');
+        alert(t('common.copied'));
       })
       .catch(err => {
         console.error('클립보드 복사 실패:', err);
@@ -84,33 +87,33 @@ const clearInput = () => {
 <template>
   <div class="json-utility">
     <header>
-      <h1>JSON 유틸리티</h1>
-      <router-link to="/" class="back-link">← 홈으로 돌아가기</router-link>
+      <h1>{{ $t('jsonUtil.title') }}</h1>
+      <router-link to="/" class="back-link">← {{ $t('nav.home') }}</router-link>
     </header>
 
     <div class="options-bar">
       <div class="radio-group">
         <label>
           <input type="radio" v-model="selectedAction" value="pretty">
-          예쁘게 포맷팅
+          {{ $t('common.format') }}
         </label>
         <label>
           <input type="radio" v-model="selectedAction" value="minify">
-          압축
+          {{ $t('common.minify') }}
         </label>
         <label>
           <input type="radio" v-model="selectedAction" value="validate">
-          유효성 검사
+          {{ $t('common.validate') }}
         </label>
       </div>
       
       <div v-if="selectedAction === 'pretty'" class="indent-options">
-        <label>들여쓰기 공백:
+        <label>{{ $t('jsonUtil.indentation') }}:
           <select v-model.number="indentSpaces">
-            <option :value="2">2 spaces</option>
-            <option :value="4">4 spaces</option>
-            <option :value="6">6 spaces</option>
-            <option :value="8">8 spaces</option>
+            <option :value="2">2 {{ $t('jsonUtil.spaces') }}</option>
+            <option :value="4">4 {{ $t('jsonUtil.spaces') }}</option>
+            <option :value="6">6 {{ $t('jsonUtil.spaces') }}</option>
+            <option :value="8">8 {{ $t('jsonUtil.spaces') }}</option>
           </select>
         </label>
       </div>
@@ -119,29 +122,31 @@ const clearInput = () => {
     <div class="json-container">
       <div class="input-section">
         <div class="text-header">
-          <h3>입력 JSON</h3>
+          <h3>{{ $t('common.input') }}</h3>
           <div class="actions">
-            <button @click="loadSample" class="btn">샘플 로드</button>
-            <button @click="clearInput" class="btn">초기화</button>
+            <button @click="loadSample" class="btn">{{ $t('common.sample') }}</button>
+            <button @click="clearInput" class="btn">{{ $t('common.clear') }}</button>
           </div>
         </div>
         <textarea 
           v-model="inputJson"
-          placeholder="여기에 JSON을 입력하세요..."
+          :placeholder="$t('jsonUtil.description')"
           class="json-textarea"
         ></textarea>
       </div>
       
       <div class="action-center">
         <button @click="processJson" class="process-btn">
-          처리 →
+          {{ selectedAction === 'pretty' ? $t('common.format') : 
+              selectedAction === 'minify' ? $t('common.minify') : 
+              $t('common.validate') }} →
         </button>
       </div>
       
       <div class="output-section">
         <div class="text-header">
-          <h3>결과</h3>
-          <button @click="copyOutput" class="btn" :disabled="!outputJson">복사</button>
+          <h3>{{ $t('common.output') }}</h3>
+          <button @click="copyOutput" class="btn" :disabled="!outputJson">{{ $t('common.copy') }}</button>
         </div>
         <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
         <textarea 

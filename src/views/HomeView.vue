@@ -1,24 +1,27 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 // 유틸리티 목록 데이터 정의
 const utilities = [
   { 
     id: 'json',
-    name: 'JSON 유틸리티',
-    description: 'JSON 데이터 인코딩/디코딩, 포맷팅, 유효성 검사',
+    name: 'nav.jsonUtil',
+    description: 'jsonUtil.description',
     path: '/json'
   },
   { 
     id: 'base64',
-    name: 'Base64 유틸리티',
-    description: 'Base64 인코딩/디코딩 기능',
+    name: 'nav.base64Util',
+    description: 'base64Util.description',
     path: '/base64'
   },
   { 
     id: 'url',
-    name: 'URL 인코딩/디코딩',
-    description: 'URL 파라미터 인코딩/디코딩 기능',
+    name: 'nav.urlUtil',
+    description: 'urlUtil.description',
     path: '/url'
   }
 ];
@@ -33,8 +36,8 @@ const navigateTo = (path: string) => {
 <template>
   <div class="home">
     <header>
-      <h1>개발자 유틸리티 도구</h1>
-      <p>개발 작업에 유용한 다양한 유틸리티 기능을 제공합니다</p>
+      <h1>{{ $t('home.title') }}</h1>
+      <p>{{ $t('home.description') }}</p>
     </header>
     
     <div class="utility-grid">
@@ -44,8 +47,8 @@ const navigateTo = (path: string) => {
         class="utility-card" 
         @click="() => navigateTo(util.path)"
       >
-        <h2>{{ util.name }}</h2>
-        <p>{{ util.description }}</p>
+        <h2>{{ $t(util.name) }}</h2>
+        <p>{{ $t(util.description) }}</p>
       </div>
     </div>
   </div>
