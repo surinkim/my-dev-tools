@@ -114,7 +114,7 @@ const i18n = createI18n({
 })
 
 // 언어 변경 함수
-export function setLocale(locale: string) {
+export function setLocale(locale: 'ko' | 'en') {
   i18n.global.locale.value = locale
   localStorage.setItem('locale', locale) // 로컬 스토리지에 언어 설정 저장
   document.querySelector('html')?.setAttribute('lang', locale) // HTML lang 속성 업데이트
