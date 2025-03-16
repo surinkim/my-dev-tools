@@ -1,4 +1,4 @@
-# My Dev Tools
+# DevBuddy
 
 개발자를 위한 유용한 유틸리티 모음 애플리케이션입니다. Vue 3와 Vite를 사용하여 개발되었습니다.
 

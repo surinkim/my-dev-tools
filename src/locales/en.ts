@@ -27,7 +27,7 @@ export default {
     urlUtil: 'URL Utility'
   },
   home: {
-    title: 'Developer Utility Tools',
+    title: 'DevBuddy',
     description: 'A collection of useful tools for development work',
     getStarted: 'Get Started'
   },

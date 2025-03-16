@@ -27,7 +27,7 @@ export default {
     urlUtil: 'URL 유틸리티'
   },
   home: {
-    title: '개발자 유틸리티 도구',
+    title: 'DevBuddy',
     description: '개발 작업에 유용한 다양한 도구 모음입니다',
     getStarted: '시작하기'
   },
