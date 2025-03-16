@@ -23,7 +23,7 @@ const currentLocale = ref(i18n.locale.value)
 // 언어 변경 함수
 const changeLanguage = (event: Event) => {
   const target = event.target as HTMLSelectElement
-  const locale = target.value
+  const locale = target.value as 'ko' | 'en'
   setLocale(locale)
   currentLocale.value = locale
 }
