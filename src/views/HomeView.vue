@@ -14,6 +14,12 @@ const utilities = [
     name: 'Base64 유틸리티',
     description: 'Base64 인코딩/디코딩 기능',
     path: '/base64'
+  },
+  { 
+    id: 'url',
+    name: 'URL 인코딩/디코딩',
+    description: 'URL 파라미터 인코딩/디코딩 기능',
+    path: '/url'
   }
 ];
 

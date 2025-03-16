@@ -19,6 +19,11 @@ const router = createRouter({
       path: '/base64',
       name: 'base64',
       component: () => import('../views/Base64UtilView.vue')
+    },
+    {
+      path: '/url',
+      name: 'url',
+      component: () => import('../views/UrlUtilView.vue')
     }
   ]
 })
