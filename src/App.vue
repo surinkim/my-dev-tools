@@ -15,6 +15,7 @@ const toggleDarkMode = () => {
     <header class="header">
       <div class="header-container">
         <h1 class="logo">
+          <img src="@/assets/icon.png" alt="DevBuddy Icon" class="logo-icon" />
           <RouterLink to="/">{{ $t('home.title') }}</RouterLink>
         </h1>
         <nav class="nav">
@@ -26,7 +27,6 @@ const toggleDarkMode = () => {
         <div class="language-container">
           <LanguageSelector />
         </div>
-        <!-- 다크 모드 토글 버튼 제거 -->
       </div>
     </header>
     <main class="main">
@@ -85,9 +85,17 @@ a:hover {
 }
 
 .logo {
+  display: flex;
+  align-items: center;
   font-size: 1.4rem;
   font-weight: bold;
   margin: 0;
+}
+
+.logo-icon {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
 }
 
 .logo a {
