@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import LanguageSelector from '@/components/LanguageSelector.vue'
+
+// 다크 모드 전환 함수
+const toggleDarkMode = () => {
+  document.body.classList.toggle("dark-mode");
+  const isDarkMode = document.body.classList.contains("dark-mode");
+  localStorage.setItem("dark-mode", isDarkMode ? "true" : "false");
+}
 </script>
 
 <template>
@@ -19,6 +26,7 @@ import LanguageSelector from '@/components/LanguageSelector.vue'
         <div class="language-container">
           <LanguageSelector />
         </div>
+        <!-- 다크 모드 토글 버튼 제거 -->
       </div>
     </header>
     <main class="main">
@@ -130,5 +138,21 @@ a:hover {
     margin-top: 0.5rem;
     margin-left: 0;
   }
+}
+
+.dark-mode-toggle {
+  display: none; /* 다크 모드 토글 버튼 스타일 제거 */
+}
+
+.dark-mode-toggle .icon {
+  display: none; /* 다크 모드 토글 버튼 아이콘 스타일 제거 */
+}
+
+.dark-mode-toggle .text {
+  display: none; /* 다크 모드 토글 버튼 텍스트 스타일 제거 */
+}
+
+.dark-mode-toggle:hover {
+  display: none; /* 다크 모드 토글 버튼 호버 스타일 제거 */
 }
 </style>
